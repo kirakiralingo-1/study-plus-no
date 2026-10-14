@@ -20,14 +20,6 @@ app.use(cors());
 app.set("trust proxy", 1);
 app.use(cookieParser());
 
-app.use((req, res, next) => {
-    if (req.cookies.loginok !== 'ok' && !req.path.includes('login') && !req.path.includes('back')) {
-        return res.redirect('/login');
-    } else {
-        next();
-    }
-});
-
 app.get('/', (req, res) => {
   if (req.query.r === 'y') {
     res.render("home/index");
@@ -46,10 +38,6 @@ app.use("/tools", require("./routes/tools"));
 app.use("/other", require("./routes/other"));
 app.use("/wakams", require("./routes/music"));
 app.use("/blog", require("./routes/blog"));
-
-app.get('/login', (req, res) => {
-    res.render('home/login');
-});
 
 app.get('/watch', (req, res) => {
   const videoId = req.query.v;
